@@ -55,7 +55,6 @@ import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.MessageProducer;
 import javax.jms.Session;
-import javax.jms.TextMessage;
 
 
 /**
@@ -77,7 +76,6 @@ public class SendModifiedCommand {
         String factoryName = "jms/__defaultConnectionFactory";
         String destName = "commandeModifiee";
         Destination dest = null;
-        int count = 45;
         Session session = null;
         MessageProducer sender = null;
 
