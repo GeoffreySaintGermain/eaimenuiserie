@@ -76,7 +76,6 @@ public class SendValidatedCommand {
         String factoryName = "jms/__defaultConnectionFactory";
         String destName = "commandeValidee";
         Destination dest = null;
-        int count = 45;
         Session session = null;
         MessageProducer sender = null;
 
