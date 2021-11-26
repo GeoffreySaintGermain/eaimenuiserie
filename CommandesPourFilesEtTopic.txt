@@ -1,0 +1,15 @@
+create-jms-resource --restype javax.jms.Queue commandeEmise
+
+create-jms-resource --restype javax.jms.Queue commandeValidee
+
+create-jms-resource --restype javax.jms.Queue affaireEmise
+
+create-jms-resource --restype javax.jms.Topic commandeModifiee
+
+create-jms-resource --restype javax.jms.Topic commandeCloturee
+
+create-jms-resource --restype javax.jms.Topic affaireModifiee
+
+create-jms-resource --restype javax.jms.Topic affaireValidee
+
+create-jms-resource --restype javax.jms.Topic affaireCloturee
