@@ -32,8 +32,6 @@ public class Commande {
         public Mesure(String mesureLargeur, String mesureLongueur) {
             this.mesureLargeur = mesureLargeur;
             this.mesureLongueur = mesureLongueur;
-            
-                    
         }
     }
 }
