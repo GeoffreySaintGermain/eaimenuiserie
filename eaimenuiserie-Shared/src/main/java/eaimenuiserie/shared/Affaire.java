@@ -33,12 +33,85 @@ public class Affaire {
         this.entreprise = entreprise;
         this.lieuPose = lieuPose;
         
-        this.statut = statutAffaire.ENCOURS;
+        this.statut = statutAffaire.CREEE;
         this.identite = UUID.randomUUID();
     }
     
     enum statutAffaire {
-        ENCOURS,
-        FERME
+        CREEE,
+        MODIFIEE,
+        FERMEE
     }
+
+    public UUID getIdentite() {
+        return identite;
+    }
+
+    public void setIdentite(UUID identite) {
+        this.identite = identite;
+    }
+
+    public String getRue() {
+        return rue;
+    }
+
+    public void setRue(String rue) {
+        this.rue = rue;
+    }
+
+    public String getVille() {
+        return ville;
+    }
+
+    public void setVille(String ville) {
+        this.ville = ville;
+    }
+
+    public String getCp() {
+        return cp;
+    }
+
+    public void setCp(String cp) {
+        this.cp = cp;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public String getEntreprise() {
+        return entreprise;
+    }
+
+    public void setEntreprise(String entreprise) {
+        this.entreprise = entreprise;
+    }
+
+    public String getLieuPose() {
+        return lieuPose;
+    }
+
+    public void setLieuPose(String lieuPose) {
+        this.lieuPose = lieuPose;
+    }
+
+    public statutAffaire getStatut() {
+        return statut;
+    }
+
+    public void setStatut(statutAffaire statut) {
+        this.statut = statut;
+    }      
 }
