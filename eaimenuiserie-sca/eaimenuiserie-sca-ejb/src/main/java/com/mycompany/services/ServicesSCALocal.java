@@ -5,7 +5,7 @@
  */
 package com.mycompany.services;
 
-import com.mycompany.eaimenuiserie.shared.Affaire;
+import eaimenuiserie.shared.Affaire;
 import com.mycompany.exceptions.AffaireInconnuException;
 import java.io.Serializable;
 import javax.ejb.Local;
@@ -21,6 +21,6 @@ import javax.persistence.Id;
 @Local
 public interface ServicesSCALocal {
 
-   public String majAffaire(Affaire affaire) throws AffaireInconnuException;
+   public String modifierAffaire(Affaire affaire) throws AffaireInconnuException;
     
 }

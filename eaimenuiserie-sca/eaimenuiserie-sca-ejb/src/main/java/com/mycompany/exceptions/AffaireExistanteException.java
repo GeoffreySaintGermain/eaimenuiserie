@@ -3,19 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.entities;
-
-import eaimenuiserie.shared.Commande;
+package com.mycompany.exceptions;
 
 /**
  *
- * @author GeoffreySaint-Germai
+ * @author grego
  */
-public class Main {
-    
-    public static void main(String args[]) {
+public class AffaireExistanteException extends Exception {
+    public AffaireExistanteException() {
         
-        
-        
-    }
+    } 
 }

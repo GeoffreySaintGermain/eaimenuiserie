@@ -37,7 +37,7 @@ public class Affaire {
         this.identite = UUID.randomUUID();
     }
     
-    enum statutAffaire {
+    public enum statutAffaire {
         CREEE,
         MODIFIEE,
         FERMEE
