@@ -23,7 +23,7 @@ import javax.persistence.Id;
 public class SCABean implements SCABeanLocal {
 
     @Override
-    public Affaire modifierAffaire(Affaire affaire) throws AffaireInconnuException {
+    public Affaire modifierAffaire(UUID identite, String rue, String ville, String cp, String mail, String telephone, String entreprise, String lieuPose, Affaire.statutAffaire statut) throws AffaireInconnuException {
         // TODO: Implements
         return null;
     }
