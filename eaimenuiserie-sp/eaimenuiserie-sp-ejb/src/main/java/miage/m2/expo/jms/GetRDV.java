@@ -22,6 +22,8 @@ import javax.jms.MessageListener;
         @ActivationConfigProperty(propertyName = "subscriptionName", propertyValue = "rdv")
     ,
         @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic")
+    ,
+        @ActivationConfigProperty(propertyName = "messageSelector", propertyValue = "JMSType = 'Poseur'")
 })
 public class GetRDV implements MessageListener {
     
