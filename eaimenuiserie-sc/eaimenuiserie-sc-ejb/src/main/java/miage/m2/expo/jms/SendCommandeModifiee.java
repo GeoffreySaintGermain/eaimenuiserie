@@ -1,4 +1,4 @@
-package test;
+package miage.m2.expo.jms;
 
 /**
  * Redistribution and use of this software and associated documentation
