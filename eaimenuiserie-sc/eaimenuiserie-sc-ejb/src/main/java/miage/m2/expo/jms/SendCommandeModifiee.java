@@ -1,4 +1,4 @@
-package miage.m2.expo.jms;
+package test;
 
 /**
  * Redistribution and use of this software and associated documentation
@@ -63,7 +63,7 @@ import javax.jms.Session;
  * @author <a href="mailto:tma@netspace.net.au">Tim Anderson</a>
  * @version $Revision: 1.3 $ $Date: 2005/11/18 03:28:01 $
  */
-public class SendModifiedCommand {
+public class SendCommandeModifiee {
 /**
      * Main line.
      *

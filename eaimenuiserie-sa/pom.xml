@@ -10,4 +10,11 @@
     <module>eaimenuiserie-sa-web</module>
     <module>eaimenuiserie-sa-ejb</module>
   </modules>
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>eaimenuiserie-Shared</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>

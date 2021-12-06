@@ -1,4 +1,4 @@
-package miage.m2.expo.jms;
+package test;
 
 /**
  * Redistribution and use of this software and associated documentation
@@ -53,7 +53,7 @@ import javax.jms.JMSException;
 import javax.jms.Destination;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
-import javax.jms.MessageConsumer;
+import javax.jms.MessageProducer;
 import javax.jms.Session;
 
 
@@ -63,7 +63,7 @@ import javax.jms.Session;
  * @author <a href="mailto:tma@netspace.net.au">Tim Anderson</a>
  * @version $Revision: 1.3 $ $Date: 2005/11/18 03:28:01 $
  */
-public class GetCommand {
+public class SendCommandeValidee {
 /**
      * Main line.
      *
@@ -74,14 +74,15 @@ public class GetCommand {
         ConnectionFactory factory = null;
         Connection connection = null;
         String factoryName = "jms/__defaultConnectionFactory";
-        String destName = "commandeEmise";
+        String destName = "commandeValidee";
         Destination dest = null;
-        int count = 1;
         Session session = null;
-        MessageConsumer receiver = null;
+        MessageProducer sender = null;
+
+
 
         try {
-            // create the JNDI initial context
+            // create the JNDI initial context.
             context = new InitialContext();
 
             // look up the ConnectionFactory
@@ -97,12 +98,13 @@ public class GetCommand {
             session = connection.createSession(
                 false, Session.AUTO_ACKNOWLEDGE);
 
-            // create the receiver
-            receiver = session.createConsumer(dest);
+            // create the sender
+            sender = session.createProducer(dest);
 
-            // start the connection, to enable message receipt
+            // start the connection, to enable message sends
             connection.start();
 
+            // send data
         } catch (JMSException exception) {
             exception.printStackTrace();
         } catch (NamingException exception) {

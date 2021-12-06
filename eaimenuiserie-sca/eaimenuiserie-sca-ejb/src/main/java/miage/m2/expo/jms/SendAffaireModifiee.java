@@ -63,7 +63,7 @@ import javax.jms.Session;
  * @author <a href="mailto:tma@netspace.net.au">Tim Anderson</a>
  * @version $Revision: 1.3 $ $Date: 2005/11/18 03:28:01 $
  */
-public class SendValidatedCommand {
+public class SendAffaireModifiee {
 /**
      * Main line.
      *
@@ -74,7 +74,7 @@ public class SendValidatedCommand {
         ConnectionFactory factory = null;
         Connection connection = null;
         String factoryName = "jms/__defaultConnectionFactory";
-        String destName = "commandeValidee";
+        String destName = "affaireModifiee";
         Destination dest = null;
         Session session = null;
         MessageProducer sender = null;

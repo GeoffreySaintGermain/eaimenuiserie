@@ -13,3 +13,5 @@ create-jms-resource --restype javax.jms.Topic affaireModifiee
 create-jms-resource --restype javax.jms.Topic affaireValidee
 
 create-jms-resource --restype javax.jms.Topic affaireCloturee
+
+create-jms-resource --restype javax.jms.Topic rdv

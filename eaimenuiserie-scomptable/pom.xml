@@ -10,4 +10,11 @@
     <module>eaimenuiserie-scomptable-web</module>
     <module>eaimenuiserie-scomptable-ejb</module>
   </modules>
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>eaimenuiserie-Shared</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>
