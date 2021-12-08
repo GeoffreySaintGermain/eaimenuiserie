@@ -5,11 +5,13 @@
  */
 package eaimenuiserie.shared;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Kevin
  */
-public class Mesure {
+public class Mesure implements Serializable {
     private String mesureLargeur;
     private String mesureLongueur;
 

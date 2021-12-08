@@ -5,13 +5,14 @@
  */
 package eaimenuiserie.shared;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 /**
  *
  * @author GeoffreySaint-Germai
  */
-public class Commande {
+public class Commande implements Serializable {
     
     private UUID identite;
     private String refCatalogueProduit;

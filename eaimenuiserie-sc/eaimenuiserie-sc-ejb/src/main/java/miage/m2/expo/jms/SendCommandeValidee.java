@@ -45,6 +45,8 @@ package miage.m2.expo.jms;
  * $Id: Sender.java,v 1.3 2005/11/18 03:28:01 tanderson Exp $
  */
 
+import eaimenuiserie.shared.Commande;
+import eaimenuiserie.shared.Mesure;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -54,6 +56,7 @@ import javax.jms.Destination;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.MessageProducer;
+import javax.jms.ObjectMessage;
 import javax.jms.Session;
 
 
@@ -69,7 +72,8 @@ public class SendCommandeValidee {
      *
      * @param args command line arguments
      */
-    public static void main(String[] args) {
+    public static void sendMsg(Commande commande) {
+        System.out.println("icicici");
         Context context = null;
         ConnectionFactory factory = null;
         Connection connection = null;
@@ -78,8 +82,6 @@ public class SendCommandeValidee {
         Destination dest = null;
         Session session = null;
         MessageProducer sender = null;
-
-
 
         try {
             // create the JNDI initial context.
@@ -93,16 +95,25 @@ public class SendCommandeValidee {
 
             // create the connection
             connection = factory.createConnection();
+            System.out.println("connecté");
 
             // create the session
             session = connection.createSession(
                 false, Session.AUTO_ACKNOWLEDGE);
+            System.out.println("sessioné");
 
             // create the sender
             sender = session.createProducer(dest);
 
             // start the connection, to enable message sends
             connection.start();
+            System.out.println("starté");
+
+            
+            // TMP --> delete quand on voudra faire le vrai dev
+            ObjectMessage message = session.createObjectMessage();
+            message.setObject(commande);
+            sender.send(message);
 
             // send data
         } catch (JMSException exception) {
