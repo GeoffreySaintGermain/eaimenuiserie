@@ -7,12 +7,13 @@ package miage.m2.expo.jms;
 
 import eaimenuiserie.shared.Commande;
 import javax.ejb.ActivationConfigProperty;
+import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
-import miage.m2.core.entities.Commandes;
+import miage.m2.core.entities.CommandesBean;
 
 
 /**
@@ -23,7 +24,10 @@ import miage.m2.core.entities.Commandes;
     @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")
 })
 public class GetCommandeValidee implements MessageListener {
-    
+
+    @EJB
+    private CommandesBean commandesBean;
+
     public GetCommandeValidee() {
     }
     
@@ -33,7 +37,7 @@ public class GetCommandeValidee implements MessageListener {
             if (message instanceof ObjectMessage) {
                 ObjectMessage obj = (ObjectMessage) message;
                 try {
-                    Commandes.addCommandes((Commande)obj.getObject());
+                    commandesBean.addCommandes((Commande)obj.getObject());
                 } catch (JMSException exception) {
                     System.err.println("Failed to get message text: " + exception);
                 }

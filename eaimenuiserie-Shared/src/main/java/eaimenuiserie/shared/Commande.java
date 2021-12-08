@@ -26,19 +26,8 @@ public class Commande {
         this.identite = UUID.randomUUID();
         this.statut = statutCommande.CREEE;
     }
-
-    class Mesure {
-        
-        private String mesureLargeur;
-        private String mesureLongueur;
-        
-        public Mesure(String mesureLargeur, String mesureLongueur) {
-            this.mesureLargeur = mesureLargeur;
-            this.mesureLongueur = mesureLongueur;
-        }
-    }
     
-    enum statutCommande {
+    public enum statutCommande {
         CREEE,
         MODIFIEE,
         FERMEE
