@@ -5,23 +5,24 @@
  */
 package miage.m2.core.entities;
 
+import eaimenuiserie.shared.Affaire;
 import eaimenuiserie.shared.Commande;
-import eaimenuiserie.shared.Mesure;
 import java.util.ArrayList;
 import java.util.UUID;
+import javax.ejb.EJB;
 import javax.ejb.Singleton;
-import javax.ejb.LocalBean;
+import miage.m2.expo.jms.SendAffaireValidee;
+import miage.m2.expo.jms.SendCommandeValidee;
 
 /**
  *
  * @author Kevin
  */
 @Singleton
-@LocalBean
-public class CommandesBean {
+public class Commandes implements CommandesLocal {
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+    @EJB
+    private AffairesLocal affaires;
 
     private static ArrayList<Commande> commandes;
 
@@ -32,10 +33,20 @@ public class CommandesBean {
         return commandes;
     }
 
+    @Override
     public void addCommandes(Commande commande) {
-        getCommandes().add(commande);
+        getCommandes().add(new Commande(commande.getRefCatalogueProduit(), commande.getMesure(), commande.getMontant(), commande.getAffaire()));
+        for(Affaire affaire : this.affaires.getAffaires()) {
+            if(affaire.getIdentite().equals(commande.getAffaire())) {
+                affaire.setStatut(Affaire.statutAffaire.VALIDEE);
+                SendAffaireValidee.sendMsg(commande.getAffaire());
+                break;
+            }
+        }
+        SendCommandeValidee.sendMsg(commande);
     }
 
+    @Override
     public void removeCommandes(UUID identite) {
         for(int i = 0 ; i < getCommandes().size(); i++) {
             if(commandes.get(i).getIdentite() == identite) {

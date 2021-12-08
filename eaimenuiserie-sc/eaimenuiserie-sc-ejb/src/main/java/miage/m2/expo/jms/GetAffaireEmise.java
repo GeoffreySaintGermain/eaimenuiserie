@@ -5,7 +5,7 @@
  */
 package miage.m2.expo.jms;
 
-import eaimenuiserie.shared.Commande;
+import eaimenuiserie.shared.Affaire;
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
@@ -13,38 +13,33 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
-import miage.m2.core.entities.CommandesLocal;
+import miage.m2.core.entities.AffairesLocal;
 
 /**
  *
  * @author Kevin
  */
-@MessageDriven(mappedName = "commandeCloturee", activationConfig = {
-    @ActivationConfigProperty(propertyName = "clientId", propertyValue = "saCommandeClotureeV")
-    ,
-        @ActivationConfigProperty(propertyName = "subscriptionDurability", propertyValue = "Durable")
-    ,
-        @ActivationConfigProperty(propertyName = "subscriptionName", propertyValue = "commandeCloturee")
-    ,
-        @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic")
+@MessageDriven(mappedName = "affaireEmise", activationConfig = {
+    @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")
 })
-public class GetCommandeCloturee implements MessageListener {
+public class GetAffaireEmise implements MessageListener {
 
     @EJB
-    private CommandesLocal commandes;
-
-    public GetCommandeCloturee() {
+    private AffairesLocal affaires;
+    
+    public GetAffaireEmise() {
     }
     
     @Override
     public void onMessage(Message message) {
         try {
+            System.out.println("miage.m2.expo.jms.GetAffaireEmise.onMessage()");
             if (message instanceof ObjectMessage) {
                 ObjectMessage obj = (ObjectMessage) message;
                 try {
-                    commandes.removeCommandes(((Commande)obj.getObject()).getIdentite());
+                    affaires.ajouterAffaire(((Affaire)obj.getObject()));
                 } catch (JMSException exception) {
-                    System.err.println("Failed to0 get message text: " + exception);
+                    System.err.println("Failed to get message text: " + exception);
                 }
             }
         } catch (Exception exception) {

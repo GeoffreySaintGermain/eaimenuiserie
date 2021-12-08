@@ -9,17 +9,17 @@ import eaimenuiserie.shared.Commande;
 import java.util.ArrayList;
 import java.util.UUID;
 import javax.ejb.Singleton;
-import javax.ejb.LocalBean;
-import miage.m2.expo.jms.SendCommandeValidee;
 
 /**
  *
  * @author Kevin
  */
 @Singleton
-@LocalBean
-public class CommandesBean {
+public class Commandes implements CommandesLocal {
 
+    // Add business logic below. (Right-click in editor and choose
+    // "Insert Code > Add Business Method")
+    
     private static ArrayList<Commande> commandes;
 
     public ArrayList<Commande> getCommandes() {
@@ -31,7 +31,8 @@ public class CommandesBean {
 
     public void addCommandes(Commande commande) {
         getCommandes().add(commande);
-        SendCommandeValidee.sendMsg(commande);
+        // Il faudrait passer la commande au fournisseur, ici le fournisseur n'existe pas
+        // donc ici il faut valider l'affaire
     }
 
     public void removeCommandes(UUID identite) {

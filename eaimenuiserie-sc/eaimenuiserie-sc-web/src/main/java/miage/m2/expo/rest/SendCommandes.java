@@ -20,6 +20,7 @@ import javax.naming.NamingException;
 import javax.ws.rs.POST;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import miage.m2.core.entities.CommandesLocal;
 
 /**
  * REST Web Service
@@ -30,7 +31,7 @@ import javax.ws.rs.core.Response;
 @RequestScoped
 public class SendCommandes {
 
-    miage.m2.core.entities.CommandesBean commandesBean = lookupCommandesBeanBean();
+    CommandesLocal commandes = lookupCommandesLocal();    
     
     private Gson gson;
 
@@ -45,32 +46,26 @@ public class SendCommandes {
     }
 
     /**
-     * Retrieves representation of an instance of miage.m2.expo.rest.SendCommandes
-     * @return an instance of java.lang.String
-     */
-    @GET
-    @Produces(MediaType.APPLICATION_XML)
-    public String getXml() {
-        //TODO return proper representation object
-        throw new UnsupportedOperationException();
-    }
-
-    /**
      * PUT method for updating or creating an instance of SendCommandes
-     * @param content representation for the resource
+     * @param commande JSON Commande
+     * @return CREATED
      */
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public Response postJson(String commande) {
-        Commande commandeObj = (Commande)this.gson.fromJson(commande, Commande.class);
-        this.commandesBean.addCommandes(commandeObj);
-        return Response.ok(this.gson.toJson("OK")).build();
+        try {
+            Commande commandeObj = (Commande)this.gson.fromJson(commande, Commande.class);
+            this.commandes.addCommandes(commandeObj);
+            return Response.status(Response.Status.CREATED).build();        
+        } catch(Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
-    private miage.m2.core.entities.CommandesBean lookupCommandesBeanBean() {
+    private CommandesLocal lookupCommandesLocal() {
         try {
             javax.naming.Context c = new InitialContext();
-            return (miage.m2.core.entities.CommandesBean) c.lookup("java:global/eaimenuiserie-sc-ear/eaimenuiserie-sc-ejb-1.0-SNAPSHOT/CommandesBean!miage.m2.core.entities.CommandesBean");
+            return (CommandesLocal) c.lookup("java:global/eaimenuiserie-sc-ear/eaimenuiserie-sc-ejb-1.0-SNAPSHOT/Commandes!miage.m2.core.entities.CommandesLocal");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

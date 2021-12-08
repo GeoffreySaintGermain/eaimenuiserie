@@ -13,7 +13,7 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
-import miage.m2.core.entities.CommandesBean;
+import miage.m2.core.entities.CommandesLocal;
 
 
 /**
@@ -26,7 +26,7 @@ import miage.m2.core.entities.CommandesBean;
 public class GetCommandeValidee implements MessageListener {
 
     @EJB
-    private CommandesBean commandesBean;
+    private CommandesLocal commandes;
 
     public GetCommandeValidee() {
     }
@@ -37,7 +37,7 @@ public class GetCommandeValidee implements MessageListener {
             if (message instanceof ObjectMessage) {
                 ObjectMessage obj = (ObjectMessage) message;
                 try {
-                    commandesBean.addCommandes((Commande)obj.getObject());
+                    commandes.addCommandes((Commande)obj.getObject());
                 } catch (JMSException exception) {
                     System.err.println("Failed to get message text: " + exception);
                 }

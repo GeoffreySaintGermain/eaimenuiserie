@@ -19,13 +19,15 @@ public class Commande implements Serializable {
     private Mesure mesure;
     private double montant;
     private statutCommande statut;
+    private UUID affaire;
     
-    public Commande(String refCatalogueProduit, Mesure mesure, double montant) {
+    public Commande(String refCatalogueProduit, Mesure mesure, double montant, UUID affaire) {
         this.refCatalogueProduit = refCatalogueProduit;
         this.mesure = mesure;
         this.montant = montant;
         this.identite = UUID.randomUUID();
         this.statut = statutCommande.CREEE;
+        this.affaire = affaire;
     }
     
     public enum statutCommande {
@@ -72,5 +74,13 @@ public class Commande implements Serializable {
 
     public void setStatut(statutCommande statut) {
         this.statut = statut;
+    }
+
+    public UUID getAffaire() {
+        return affaire;
+    }
+
+    public void setAffaire(UUID affaire) {
+        this.affaire = affaire;
     }
 }

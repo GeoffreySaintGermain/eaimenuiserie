@@ -5,13 +5,14 @@
  */
 package eaimenuiserie.shared;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 /**
  *
  * @author GeoffreySaint-Germai
  */
-public class Affaire {
+public class Affaire implements Serializable {
     
     private UUID identite;
     private String rue;
@@ -40,6 +41,7 @@ public class Affaire {
     public enum statutAffaire {
         CREEE,
         MODIFIEE,
+        VALIDEE,
         FERMEE
     }
 

@@ -45,7 +45,7 @@ package miage.m2.expo.jms;
  * $Id: Sender.java,v 1.3 2005/11/18 03:28:01 tanderson Exp $
  */
 
-import eaimenuiserie.shared.Commande;
+import eaimenuiserie.shared.Affaire;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -65,18 +65,18 @@ import javax.jms.Session;
  * @author <a href="mailto:tma@netspace.net.au">Tim Anderson</a>
  * @version $Revision: 1.3 $ $Date: 2005/11/18 03:28:01 $
  */
-public class SendCommandeValidee {
+public class SendAffaireEmise {
 /**
      * Main line.
      *
      * @param args command line arguments
      */
-    public static void sendMsg(Commande commande) {
+    public static void sendAffaire(Affaire affaire) {
         Context context = null;
         ConnectionFactory factory = null;
         Connection connection = null;
         String factoryName = "jms/__defaultConnectionFactory";
-        String destName = "commandeValidee";
+        String destName = "affaireEmise";
         Destination dest = null;
         Session session = null;
         MessageProducer sender = null;
@@ -103,14 +103,11 @@ public class SendCommandeValidee {
 
             // start the connection, to enable message sends
             connection.start();
-
             
-            // TMP --> delete quand on voudra faire le vrai dev
             ObjectMessage message = session.createObjectMessage();
-            message.setObject(commande);
+            message.setObject(affaire);
             sender.send(message);
 
-            // send data
         } catch (JMSException exception) {
             exception.printStackTrace();
         } catch (NamingException exception) {
