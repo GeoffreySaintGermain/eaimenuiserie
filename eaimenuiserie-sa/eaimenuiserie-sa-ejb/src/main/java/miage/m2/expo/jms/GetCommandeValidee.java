@@ -5,10 +5,15 @@
  */
 package miage.m2.expo.jms;
 
+import eaimenuiserie.shared.Commande;
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
+import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
+import javax.jms.ObjectMessage;
+import miage.m2.core.entities.Commandes;
+
 
 /**
  *
@@ -24,6 +29,18 @@ public class GetCommandeValidee implements MessageListener {
     
     @Override
     public void onMessage(Message message) {
+        try {
+            if (message instanceof ObjectMessage) {
+                ObjectMessage obj = (ObjectMessage) message;
+                try {
+                    Commandes.addCommandes((Commande)obj.getObject());
+                } catch (JMSException exception) {
+                    System.err.println("Failed to get message text: " + exception);
+                }
+            }
+        } catch (Exception exception) {
+                System.err.println("Failed to get message text: " + exception);
+        }
     }
     
 }
