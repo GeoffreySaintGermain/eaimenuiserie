@@ -20,20 +20,30 @@ public class Commande implements Serializable {
     private double montant;
     private statutCommande statut;
     private UUID affaire;
+    private Commercial referent;
     
-    public Commande(String refCatalogueProduit, Mesure mesure, double montant, UUID affaire) {
+    public Commande(String refCatalogueProduit, Mesure mesure, double montant, UUID affaire, Commercial referent) {
         this.refCatalogueProduit = refCatalogueProduit;
         this.mesure = mesure;
         this.montant = montant;
         this.identite = UUID.randomUUID();
         this.statut = statutCommande.CREEE;
         this.affaire = affaire;
+        this.referent = referent;
     }
     
     public enum statutCommande {
         CREEE,
         MODIFIEE,
         FERMEE
+    }
+    
+    public Commercial getReferent() {
+        return referent;
+    }
+
+    public void setReferent(Commercial referent) {
+        this.referent = referent;
     }
 
     public UUID getIdentite() {

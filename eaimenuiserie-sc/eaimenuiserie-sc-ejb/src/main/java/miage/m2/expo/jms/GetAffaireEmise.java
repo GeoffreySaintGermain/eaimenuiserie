@@ -37,9 +37,10 @@ public class GetAffaireEmise implements MessageListener {
             if (message instanceof ObjectMessage) {
                 ObjectMessage obj = (ObjectMessage) message;
                 try {
+                    System.out.println("obj.getObject()" + obj.getObject());
                     affaires.ajouterAffaire(((Affaire)obj.getObject()));
                 } catch (JMSException exception) {
-                    System.err.println("Failed to get message text: " + exception);
+                    System.err.println("Failed to get message object: " + exception);
                 }
             }
         } catch (Exception exception) {

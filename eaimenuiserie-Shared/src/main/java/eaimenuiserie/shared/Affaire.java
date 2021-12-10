@@ -23,9 +23,10 @@ public class Affaire implements Serializable {
     private String entreprise;
     private String lieuPose;
     private statutAffaire statut;
+    private ChargeAffaire referent;
     
     public Affaire(String rue, String ville, String cp, String mail, 
-            String telephone, String entreprise, String lieuPose) {
+            String telephone, String entreprise, String lieuPose, ChargeAffaire referent) {
         this.rue = rue;
         this.ville = ville;
         this.cp = cp;
@@ -33,6 +34,7 @@ public class Affaire implements Serializable {
         this.telephone = telephone;
         this.entreprise = entreprise;
         this.lieuPose = lieuPose;
+        this.referent = referent;
         
         this.statut = statutAffaire.CREEE;
         this.identite = UUID.randomUUID();
@@ -115,5 +117,14 @@ public class Affaire implements Serializable {
 
     public void setStatut(statutAffaire statut) {
         this.statut = statut;
-    }      
+    }
+
+    public ChargeAffaire getReferent() {
+        return referent;
+    }
+
+    public void setReferent(ChargeAffaire referent) {
+        this.referent = referent;
+    }
+    
 }

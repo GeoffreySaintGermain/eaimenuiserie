@@ -6,6 +6,7 @@
 package miage.m2.entity;
 
 import eaimenuiserie.shared.Affaire;
+import eaimenuiserie.shared.ChargeAffaire;
 import java.util.ArrayList;
 import javax.ejb.Local;
 
@@ -18,7 +19,7 @@ public interface AffairesLocal {
     
     public ArrayList<Affaire> getAffaires();
 
-    void creerAffaire(String rue, String ville, String cp, String mail, String telephone, String entreprise, String lieuPose);
+    void creerAffaire(String rue, String ville, String cp, String mail, String telephone, String entreprise, String lieuPose, ChargeAffaire referent);
     
     public void creerAffaire(Affaire affaire);
 

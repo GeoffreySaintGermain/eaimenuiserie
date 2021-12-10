@@ -42,7 +42,7 @@ public class GetAffaireValidee implements MessageListener {
             if (message instanceof TextMessage) {
                 TextMessage obj = (TextMessage) message;
                 try {
-                    affaires.modifierStatut(((TextMessage) message).getText(), Affaire.statutAffaire.VALIDEE);
+                    affaires.modifierStatut(obj.getText(), Affaire.statutAffaire.VALIDEE);
                 } catch (JMSException exception) {
                     System.err.println("Failed to get message text: " + exception);
                 }

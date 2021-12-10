@@ -5,14 +5,41 @@
  */
 package eaimenuiserie.shared;
 
+import java.io.Serializable;
+import java.util.UUID;
+
 /**
  *
  * @author grego
  */
-public class Comptable extends Utilisateur {
+public class Comptable implements Serializable {
     
+    private String nom;
+    private String prenom;
+    private final UUID identite;
     public Comptable(String nom, String prenom) {
-        super(nom, prenom);
+        this.nom = nom;
+        this.prenom = prenom;
+        identite = UUID.randomUUID();
     }
-    
+
+    public UUID getIdentite() {
+        return identite;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
 }
