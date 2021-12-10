@@ -23,6 +23,7 @@ public class Commandes implements CommandesLocal {
     
     private static ArrayList<Commande> commandes;
 
+    @Override
     public ArrayList<Commande> getCommandes() {
         if(commandes == null) {
             commandes  = new ArrayList<>();

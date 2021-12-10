@@ -5,7 +5,6 @@
  */
 package miage.m2.core.entities;
 
-import eaimenuiserie.shared.Affaire;
 import eaimenuiserie.shared.Commande;
 import eaimenuiserie.shared.Commercial;
 import java.util.ArrayList;
