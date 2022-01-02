@@ -23,6 +23,12 @@ public class Commercial implements Serializable {
         this.prenom = prenom;
         identite = UUID.randomUUID();
     }
+    
+    public Commercial(String nom, String prenom, String identite) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.identite = UUID.fromString(identite);
+    }
 
     public UUID getIdentite() {
         return identite;

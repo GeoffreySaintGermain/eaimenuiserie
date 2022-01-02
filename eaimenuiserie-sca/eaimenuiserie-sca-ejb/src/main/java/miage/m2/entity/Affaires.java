@@ -31,7 +31,9 @@ public class Affaires implements AffairesLocal {
     @Override
     public void creerAffaire(String rue, String ville, String cp, String mail, 
             String telephone, String entreprise, String lieuPose, ChargeAffaire referent) {
-        getAffaires().add(new Affaire(rue, ville, cp, mail, telephone, entreprise, lieuPose, referent));
+        Affaire affaireObj = new Affaire(rue, ville, cp, mail, telephone, entreprise, lieuPose, referent);
+        getAffaires().add(affaireObj);
+        SendAffaireEmise.sendAffaire(affaireObj);
     }
     
     @Override

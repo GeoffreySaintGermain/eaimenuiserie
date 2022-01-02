@@ -29,8 +29,10 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
+        resources.add(miage.m2.expo.rest.CommercialResource.class);
         resources.add(miage.m2.expo.rest.GetAffaires.class);
         resources.add(miage.m2.expo.rest.GetCommandes.class);
+        resources.add(miage.m2.expo.rest.RendezVousResource.class);
         resources.add(miage.m2.expo.rest.SendCommandes.class);
     }
     
