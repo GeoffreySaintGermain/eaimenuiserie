@@ -6,6 +6,7 @@
 package miage.m2.expo.rest;
 
 import com.google.gson.Gson;
+import eaimenuiserie.shared.Affaire;
 import eaimenuiserie.shared.Commande;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,6 +20,8 @@ import javax.ws.rs.PUT;
 import javax.enterprise.context.RequestScoped;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.ws.rs.POST;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import miage.m2.core.entities.CommandesLocal;
@@ -61,8 +64,27 @@ public class GererCommandes {
      * @param content representation for the resource
      */
     @PUT
+    @Path("{idCommande}/{statutCommande}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void putJson(String content) {
+    public Response putJson(@PathParam("idCommande") String idCommande, @PathParam("statutCommande") String statutCommandeObj) {
+        try {
+            Affaire.statutAffaire statutAffaire;
+            Commande.statutCommande statutCommande;
+            switch(statutCommandeObj) {
+                case "ATTENTEFOURNISSEUR" :
+                    commandes.passerCommandeFournisseur(idCommande);
+                    break;
+                case "LIVREEETSTOCKEE" :
+                    commandes.receptionFournisseur(idCommande);
+                    break;
+                default:
+                    return Response.status(Response.Status.BAD_REQUEST).build();
+            }
+            
+            return Response.status(Response.Status.OK).build();
+        } catch(Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     private CommandesLocal lookupCommandesLocal() {

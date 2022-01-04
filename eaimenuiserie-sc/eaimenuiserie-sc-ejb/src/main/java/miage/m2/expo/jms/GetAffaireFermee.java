@@ -5,6 +5,7 @@
  */
 package miage.m2.expo.jms;
 
+import eaimenuiserie.shared.Affaire;
 import eaimenuiserie.shared.Commande;
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.EJB;
@@ -12,44 +13,44 @@ import javax.ejb.MessageDriven;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
-import javax.jms.ObjectMessage;
 import javax.jms.TextMessage;
+import miage.m2.core.entities.AffairesLocal;
 import miage.m2.core.entities.CommandesLocal;
 
 /**
  *
  * @author Kevin
  */
-@MessageDriven(mappedName = "commandeCloturee", activationConfig = {
-    @ActivationConfigProperty(propertyName = "clientId", propertyValue = "saCommandeClotureeV")
+@MessageDriven(mappedName = "affaireCloturee", activationConfig = {
+    @ActivationConfigProperty(propertyName = "clientId", propertyValue = "scaffaireCloturee")
     ,
         @ActivationConfigProperty(propertyName = "subscriptionDurability", propertyValue = "Durable")
     ,
-        @ActivationConfigProperty(propertyName = "subscriptionName", propertyValue = "commandeCloturee")
+        @ActivationConfigProperty(propertyName = "subscriptionName", propertyValue = "affaireCloturee")
     ,
         @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic")
 })
-public class GetCommandeCloturee implements MessageListener {
+public class GetAffaireFermee implements MessageListener {
 
     @EJB
     private CommandesLocal commandes;
 
-    public GetCommandeCloturee() {
+    @EJB
+    private AffairesLocal affaires;
+    
+    public GetAffaireFermee() {
     }
     
     @Override
     public void onMessage(Message message) {
-        try {
-            if (message instanceof TextMessage) {
-                TextMessage obj = (TextMessage) message;
-                try {
-                    commandes.fermer(obj.getText());
-                } catch (JMSException exception) {
-                    System.err.println("Failed to0 get message text: " + exception);
-                }
-            }
-        } catch (Exception exception) {
+        if (message instanceof TextMessage) {
+            TextMessage obj = (TextMessage) message;
+            try {
+                affaires.modifierStatut(obj.getText(), Affaire.statutAffaire.FERMEE);
+                commandes.fermerCommandesSuiteFermetureAffaire(obj.getText());
+            } catch (JMSException exception) {
                 System.err.println("Failed to get message text: " + exception);
+            }
         }
     }
     

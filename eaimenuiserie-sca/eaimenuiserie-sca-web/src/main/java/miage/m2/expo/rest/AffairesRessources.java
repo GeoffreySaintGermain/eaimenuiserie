@@ -18,7 +18,9 @@ import javax.ws.rs.Path;
 import javax.enterprise.context.RequestScoped;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.POST;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -52,7 +54,6 @@ public class AffairesRessources {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getJson() {
-        System.out.println("miage.m2.expo.rest.AffairesRessources.getJson()" + affaires.getAffaires());
         return Response.ok(this.gson.toJson(affaires.getAffaires())).build();
     }
 
@@ -70,6 +71,18 @@ public class AffairesRessources {
         } catch(Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
+    }
+    
+    @DELETE
+    @Path("{idAffaire}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response putJson(@PathParam("idAffaire") String idAffaire) {
+        try {
+            this.affaires.modifierStatut(idAffaire, Affaire.statutAffaire.FERMEE);
+            return Response.status(Response.Status.OK).build();        
+        } catch(Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }//
     }
     
     /**

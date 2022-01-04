@@ -14,6 +14,6 @@ import javax.ejb.Local;
 @Local
 public interface RendezVousLocal {
 
-    void envoyerRendezVous(eaimenuiserie.shared.RendezVous rendezVous);
+    void envoyerRendezVous(eaimenuiserie.shared.RendezVous rendezVous, String typeRdv);
     
 }

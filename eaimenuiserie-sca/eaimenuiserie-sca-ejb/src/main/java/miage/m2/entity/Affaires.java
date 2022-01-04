@@ -10,6 +10,7 @@ import eaimenuiserie.shared.ChargeAffaire;
 import java.util.ArrayList;
 import javax.ejb.Singleton;
 import miage.m2.expo.jms.SendAffaireEmise;
+import miage.m2.expo.jms.SendAffaireFermee;
 
 /**
  *
@@ -45,7 +46,10 @@ public class Affaires implements AffairesLocal {
     
     @Override
     public void modifierStatut(String idAffaire, Affaire.statutAffaire statut) {
-        for(Affaire aff : affaires) {
+        if(statut.equals(Affaire.statutAffaire.FERMEE)) {
+            SendAffaireFermee.sendAffaireFermee(idAffaire);
+        }
+        for(Affaire aff : getAffaires()) {
             if(aff.getIdentite().toString().equals(idAffaire)) {
                 aff.setStatut(statut);
                 return;

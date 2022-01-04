@@ -5,8 +5,9 @@
  */
 package miage.m2.core.entities;
 
-import eaimenuiserie.shared.Affaire;
+import eaimenuiserie.shared.Poseur;
 import java.util.ArrayList;
+import java.util.UUID;
 import javax.ejb.Local;
 
 /**
@@ -14,10 +15,12 @@ import javax.ejb.Local;
  * @author Kevin
  */
 @Local
-public interface AffairesLocal {
-    public ArrayList<Affaire> getAffaires();
+public interface PoseursLocal {
 
-    void ajouterAffaire(Affaire affaire);
+    ArrayList<Poseur> getPoseurs();
 
-    void modifierStatut(String idAffaire, Affaire.statutAffaire statut);
+    void addPoseur(Poseur poseur);
+
+    boolean existe(UUID uuidPoseur);
+    
 }

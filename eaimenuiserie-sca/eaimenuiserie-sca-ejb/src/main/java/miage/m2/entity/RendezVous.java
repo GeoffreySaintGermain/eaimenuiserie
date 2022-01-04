@@ -16,8 +16,8 @@ import miage.m2.expo.jms.SendRendezVous;
 public class RendezVous implements RendezVousLocal {
 
     @Override
-    public void envoyerRendezVous(eaimenuiserie.shared.RendezVous rendezVous) {
-        SendRendezVous.sendRendezVous(rendezVous);
+    public void envoyerRendezVous(eaimenuiserie.shared.RendezVous rendezVous, String typeRdv) {
+        SendRendezVous.sendRendezVous(rendezVous, typeRdv);
     }
 
     // Add business logic below. (Right-click in editor and choose

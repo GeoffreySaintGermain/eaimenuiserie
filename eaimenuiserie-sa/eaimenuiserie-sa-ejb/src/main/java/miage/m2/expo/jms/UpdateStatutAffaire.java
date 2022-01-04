@@ -45,7 +45,7 @@ package miage.m2.expo.jms;
  * $Id: Sender.java,v 1.3 2005/11/18 03:28:01 tanderson Exp $
  */
 
-import eaimenuiserie.shared.RendezVous;
+import eaimenuiserie.shared.Affaire;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -57,6 +57,7 @@ import javax.jms.ConnectionFactory;
 import javax.jms.MessageProducer;
 import javax.jms.ObjectMessage;
 import javax.jms.Session;
+import javax.jms.TextMessage;
 
 
 /**
@@ -65,18 +66,18 @@ import javax.jms.Session;
  * @author <a href="mailto:tma@netspace.net.au">Tim Anderson</a>
  * @version $Revision: 1.3 $ $Date: 2005/11/18 03:28:01 $
  */
-public class SendRendezVous {
+public class UpdateStatutAffaire {
 /**
      * Main line.
      *
      * @param args command line arguments
      */
-    public static void sendRendezVous(RendezVous rendezVous, String typeRdv) {
+    public static void updateAffaire(String UUIDaffaire, Affaire.statutAffaire statut) {
         Context context = null;
         ConnectionFactory factory = null;
         Connection connection = null;
         String factoryName = "jms/__defaultConnectionFactory";
-        String destName = "rdv";
+        String destName = "affaireModifiee";
         Destination dest = null;
         Session session = null;
         MessageProducer sender = null;
@@ -104,13 +105,9 @@ public class SendRendezVous {
             // start the connection, to enable message sends
             connection.start();
             
-            ObjectMessage message = session.createObjectMessage();
-            message.setObject(rendezVous);
-            if(typeRdv.equals("poseur")) {
-                message.setJMSType("Poseur");
-            } else {
-                message.setJMSType("Commercial");
-            }
+            TextMessage message = session.createTextMessage();
+            message.setJMSType(statut.toString());
+            message.setText(UUIDaffaire);
             sender.send(message);
 
         } catch (JMSException exception) {

@@ -1,0 +1,47 @@
+Sca : Créer une affaire OK
+Sca : Voir les affaires (affaire : CREEE) OK
+Scommercial : Créer un commercial OK
+Scommercial : Voir  le commercial OK
+Scommercial : Voir les affaires OK
+
+Sca : Créer un rendez-vous au commercial OK
+Scomemrcial : Voir les rendez-vous OK
+
+Scommercial : Créer une commande sur l'affaire OK 
+Scommercial : Voir les commandes OK 
+Sca : Voir le nouveau statut de l'affaire (affaire : VALIDEE) OK 
+Sa : Voir les commandes OK 
+
+Sa : Passer la commande au fournisseur (commande : ATTENTEFOURNISSEUR) OK 
+Sa : Voir le nouveau statut de la commande (commande : ATTENTEFOURNISSEUR)  OK 
+Sc : Voir le nouveau statut de la commande (commande : ATTENTEFOURNISSEUR) OK 
+Sca : Voir le nouveau statut de l'affaire (affaire : ATTENTECOMMANDE) OK 
+Scompatable : Voir les cheques à encaisser
+Scompatable : Encaisser le cheque
+
+Sa : Signaler réception des marchandises (commande : LIVREEETSTOCKEE) OK 
+Sa : Voir le nouveau statut de la commande (commande : LIVREEETSTOCKEE) OK 
+Sc : Voir le nouveau statut de la commande (commande : LIVREEETSTOCKEE) OK 
+Sca : Voir le nouveau statut de l'affaire (affaire : COMMANDELIVREE) OK 
+
+Sp : Créer un poseur OK
+Sca : Créer un rendez-vous au poseur OK 
+Sp : Voir les rendez-vous poseur OK
+
+Sp : Valide la pose OK
+Sca : Voir le nouveau statut de l'affaire (affaire : POSEE) OK
+
+Sca : déclenche l'encaissement du cheque
+Sc : Voir les cheques à encaisser
+Sc : Encaisser le cheque
+Sca : Voir le nouveau statut de l'affaire (affaire : ENCAISSEE)
+
+Sca : Fermer l'affaire OK
+Sca : Voir le nouveau statut de l'affaire (affaire : FERMEE) OK
+
+
+Problèmes :
+Il n'y a pas de lien entre les users/commandes/affaires
+Il n'y a pas de lien entre les rdv/commandes
+Je sais pas si les utilisatiosn de topics/queue sont bien justifiées
+Mettre les classes d'envoie/reception dans le shared ?

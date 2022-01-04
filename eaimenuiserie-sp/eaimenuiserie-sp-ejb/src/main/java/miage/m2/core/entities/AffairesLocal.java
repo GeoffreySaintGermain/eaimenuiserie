@@ -15,9 +15,9 @@ import javax.ejb.Local;
  */
 @Local
 public interface AffairesLocal {
-    public ArrayList<Affaire> getAffaires();
-
+    ArrayList<Affaire> getAffaires();
+    
     void ajouterAffaire(Affaire affaire);
-
+    
     void modifierStatut(String idAffaire, Affaire.statutAffaire statut);
 }

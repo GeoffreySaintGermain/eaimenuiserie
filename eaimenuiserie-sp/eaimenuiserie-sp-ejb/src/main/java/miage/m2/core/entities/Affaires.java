@@ -8,6 +8,7 @@ package miage.m2.core.entities;
 import eaimenuiserie.shared.Affaire;
 import java.util.ArrayList;
 import javax.ejb.Singleton;
+import miage.m2.expo.jms.UpdateStatutAffaire;
 
 /**
  *
@@ -30,9 +31,10 @@ public class Affaires implements AffairesLocal {
     public void ajouterAffaire(Affaire affaire) {
         getAffaires().add(affaire);
     }
-
+    
     @Override
     public void modifierStatut(String idAffaire, Affaire.statutAffaire statut) {
+        UpdateStatutAffaire.updateAffaire(idAffaire, statut);
         for(Affaire affaire : getAffaires()) {
             if(affaire.getIdentite().toString().equals(idAffaire)) {
                 affaire.setStatut(statut);
@@ -40,6 +42,4 @@ public class Affaires implements AffairesLocal {
             }
         }
     }
-    
-    
 }

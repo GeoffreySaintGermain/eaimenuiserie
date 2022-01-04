@@ -41,11 +41,9 @@ public class GetRdv implements MessageListener {
     @Override
     public void onMessage(Message message) {
         try {
-            System.out.println("miage.m2.expo.jms.GetAffaireEmise.onMessage()");
             if (message instanceof ObjectMessage) {
                 ObjectMessage obj = (ObjectMessage) message;
                 try {
-                    System.out.println("obj.getObject()" + obj.getObject());
                     rendezVous.addRendezVous(((RendezVous)obj.getObject()));
                 } catch (JMSException exception) {
                     System.err.println("Failed to get message object: " + exception);

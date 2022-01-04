@@ -5,11 +5,13 @@
  */
 package miage.m2.core.entities;
 
+import eaimenuiserie.shared.Affaire;
 import eaimenuiserie.shared.Commande;
-import eaimenuiserie.shared.Commercial;
 import java.util.ArrayList;
 import java.util.UUID;
 import javax.ejb.Singleton;
+import miage.m2.expo.jms.UpdateStatutAffaire;
+import miage.m2.expo.jms.UpdateStatutCommande;
 
 /**
  *
@@ -33,18 +35,52 @@ public class Commandes implements CommandesLocal {
 
     @Override
     public void addCommandes(Commande commande) {
-        getCommandes().add(new Commande(commande.getRefCatalogueProduit(), commande.getMesure(), commande.getMontant(), commande.getAffaire(), new Commercial(commande.getReferent().getNom(), commande.getReferent().getPrenom())));
-        // Il faudrait passer la commande au fournisseur, ici le fournisseur n'existe pas
-        // donc ici il faut valider l'affaire
+        getCommandes().add(commande);
     }
 
     @Override
     public void removeCommandes(UUID identite) {
         for(int i = 0 ; i < getCommandes().size(); i++) {
-            if(commandes.get(i).getIdentite() == identite) {
+            if(getCommandes().get(i).getIdentite() == identite) {
                 getCommandes().remove(i);
                 return;
             }
         }
     }
+
+    @Override
+    public void passerCommandeFournisseur(String uuidCommande) {
+        for(int i = 0 ; i < getCommandes().size(); i++) {
+            if(getCommandes().get(i).getIdentite().toString().equals(uuidCommande)) {
+                getCommandes().get(i).setStatut(Commande.statutCommande.ATTENTEFOURNISSEUR);
+                UpdateStatutCommande.updateCommande(uuidCommande, Commande.statutCommande.ATTENTEFOURNISSEUR);
+                UpdateStatutAffaire.updateAffaire(getCommandes().get(i).getAffaire().toString(), Affaire.statutAffaire.ATTENTECOMMANDE);
+                return;
+            }
+        }
+    }
+
+    @Override
+    public void receptionFournisseur(String uuidCommande) {
+        for(int i = 0 ; i < getCommandes().size(); i++) {
+            if(getCommandes().get(i).getIdentite().toString().equals(uuidCommande)) {
+                getCommandes().get(i).setStatut(Commande.statutCommande.LIVREEETSTOCKEE);
+                UpdateStatutCommande.updateCommande(uuidCommande, Commande.statutCommande.LIVREEETSTOCKEE);
+                UpdateStatutAffaire.updateAffaire(getCommandes().get(i).getAffaire().toString(), Affaire.statutAffaire.COMMANDELIVREE);
+                return;
+            }
+        }
+    }
+
+    @Override
+    public void fermer(String idCommande) {
+        for(Commande commande : getCommandes()) {
+            if(commande.getIdentite().toString().equals(idCommande)) {
+                commande.setStatut(Commande.statutCommande.FERMEE);
+            }
+        }
+    }
+    
+    
+    
 }

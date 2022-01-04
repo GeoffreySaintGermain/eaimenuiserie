@@ -33,11 +33,9 @@ public class GetAffaireEmise implements MessageListener {
     @Override
     public void onMessage(Message message) {
         try {
-            System.out.println("miage.m2.expo.jms.GetAffaireEmise.onMessage()");
             if (message instanceof ObjectMessage) {
                 ObjectMessage obj = (ObjectMessage) message;
                 try {
-                    System.out.println("obj.getObject()" + obj.getObject());
                     affaires.ajouterAffaire(((Affaire)obj.getObject()));
                 } catch (JMSException exception) {
                     System.err.println("Failed to get message object: " + exception);

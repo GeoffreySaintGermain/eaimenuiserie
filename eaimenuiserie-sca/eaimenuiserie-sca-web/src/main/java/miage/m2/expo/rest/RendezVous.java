@@ -59,12 +59,18 @@ public class RendezVous {
      * @return an instance of java.lang.String
      */
     @GET
-    @Path("{id}")
+    @Path("{type}/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getJson(@PathParam("id") String userId) {
+    public Response getJson(@PathParam("id") String userId, @PathParam("type") String type) {
         Client client = ClientBuilder.newClient();
-        WebTarget target = client.target("http://localhost:8080/eaimenuiserie-sc-web/webresources/");
-	target = target.path("rendezvous/" + userId);
+        WebTarget target;
+        if(type.equals("poseurs")) {
+            target = client.target("http://localhost:8080/eaimenuiserie-sp-web/webresources/");
+        } else {
+            target = client.target("http://localhost:8080/eaimenuiserie-sc-web/webresources/");
+        }
+        target = target.path("rendezvous/" + userId);
+	
 	Invocation.Builder builder = target.request();
 	Response response = builder.get();
         return response;
@@ -74,16 +80,16 @@ public class RendezVous {
      * @param content representation for the resource
      */
     @POST
+    @Path("{type}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response postJson(String content) {
+    public Response postJson(@PathParam("type") String type, String content) {
         try {
             SimpleDateFormat dateformatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.FRANCE);
             JsonObject  jobj = this.gson.fromJson(content, JsonObject.class);            
             eaimenuiserie.shared.RendezVous rendezVousObj = new eaimenuiserie.shared.RendezVous(dateformatter.parse(jobj.get("dateDebut").getAsString()), dateformatter.parse(jobj.get("dateFin").getAsString()), jobj.get("identite").getAsString());
-            this.rendezVous.envoyerRendezVous(rendezVousObj);
+            this.rendezVous.envoyerRendezVous(rendezVousObj, type);
             return Response.status(Response.Status.CREATED).build();        
         } catch(Exception e) {
-            System.out.println("e " + e);
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
     }

@@ -12,6 +12,7 @@ import java.util.UUID;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import miage.m2.expo.jms.SendAffaireValidee;
+import miage.m2.expo.jms.SendCommandeFermee;
 import miage.m2.expo.jms.SendCommandeValidee;
 
 /**
@@ -35,15 +36,10 @@ public class Commandes implements CommandesLocal {
 
     @Override
     public void addCommandes(Commande commande) {
-        getCommandes().add(new Commande(commande.getRefCatalogueProduit(), commande.getMesure(), commande.getMontant(), commande.getAffaire(), new Commercial(commande.getReferent().getNom(), commande.getReferent().getPrenom())));
-        //for(Affaire affaire : this.affaires.getAffaires()) {
-        //    if(affaire.getIdentite().equals(commande.getAffaire())) {
-        //        affaire.setStatut(Affaire.statutAffaire.VALIDEE);
-                SendAffaireValidee.sendMsg(commande.getAffaire());
-        //        break;
-        //    }
-        //}
-        SendCommandeValidee.sendMsg(commande);
+        Commande commandeToAdd = new Commande(commande.getRefCatalogueProduit(), commande.getMesure(), commande.getMontant(), commande.getAffaire(), new Commercial(commande.getReferent().getNom(), commande.getReferent().getPrenom()));
+        getCommandes().add(commandeToAdd);
+        SendAffaireValidee.sendMsg(commandeToAdd.getAffaire());
+        SendCommandeValidee.sendMsg(commandeToAdd);
     }
 
     @Override
@@ -55,4 +51,28 @@ public class Commandes implements CommandesLocal {
             }
         }
     }
+
+    @Override
+    public UUID modifierStatut(String identite, Commande.statutCommande statut) {
+        for(int i = 0 ; i < getCommandes().size(); i++) {
+            if(commandes.get(i).getIdentite().toString().equals(identite)) {
+                getCommandes().get(i).setStatut(statut);
+                return getCommandes().get(i).getAffaire();
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void fermerCommandesSuiteFermetureAffaire(String idAffaire) {
+        for(Commande commande : getCommandes()) {
+            if(commande.getAffaire().toString().equals(idAffaire)) {
+                commande.setStatut(Commande.statutCommande.FERMEE);
+                SendCommandeFermee.sendCommandeFermee(commande.getIdentite().toString());
+            }
+        }
+    }
+    
+    
+    
 }

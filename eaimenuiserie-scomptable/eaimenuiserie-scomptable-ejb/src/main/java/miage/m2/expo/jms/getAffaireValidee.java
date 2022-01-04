@@ -15,7 +15,7 @@ import javax.jms.MessageListener;
  * @author Kevin
  */
 @MessageDriven(mappedName = "affaireValidee", activationConfig = {
-    @ActivationConfigProperty(propertyName = "clientId", propertyValue = "scomptable")
+    @ActivationConfigProperty(propertyName = "clientId", propertyValue = "affaireValidee")
     ,
         @ActivationConfigProperty(propertyName = "subscriptionDurability", propertyValue = "Durable")
     ,
@@ -23,9 +23,9 @@ import javax.jms.MessageListener;
     ,
         @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic")
 })
-public class GetAffaireValidee implements MessageListener {
+public class getAffaireValidee implements MessageListener {
     
-    public GetAffaireValidee() {
+    public getAffaireValidee() {
     }
     
     @Override

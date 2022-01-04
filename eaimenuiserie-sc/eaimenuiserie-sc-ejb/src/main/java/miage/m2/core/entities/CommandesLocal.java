@@ -22,4 +22,8 @@ public interface CommandesLocal {
     public void addCommandes(Commande commande);
 
     public void removeCommandes(UUID identite);
+
+    public UUID modifierStatut(String identite, Commande.statutCommande statut);
+
+    void fermerCommandesSuiteFermetureAffaire(String idAffaire);
 }

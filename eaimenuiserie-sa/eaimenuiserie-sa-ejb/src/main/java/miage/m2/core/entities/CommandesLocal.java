@@ -21,4 +21,10 @@ public interface CommandesLocal {
     public void addCommandes(Commande commande);
 
     public void removeCommandes(UUID identite);
+
+    void passerCommandeFournisseur(String uuidCommande);
+
+    void receptionFournisseur(String uuidCommande);
+
+    void fermer(String idCommande);
 }

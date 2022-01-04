@@ -22,6 +22,16 @@ public class Commande implements Serializable {
     private UUID affaire;
     private Commercial referent;
     
+    public Commande(UUID identite, String refCatalogueProduit, Mesure mesure, double montant, UUID affaire, Commercial referent) {
+        this.refCatalogueProduit = refCatalogueProduit;
+        this.mesure = mesure;
+        this.montant = montant;
+        this.statut = statutCommande.CREEE;
+        this.affaire = affaire;
+        this.referent = referent;
+        this.identite = identite;
+    }
+    
     public Commande(String refCatalogueProduit, Mesure mesure, double montant, UUID affaire, Commercial referent) {
         this.refCatalogueProduit = refCatalogueProduit;
         this.mesure = mesure;
@@ -31,10 +41,11 @@ public class Commande implements Serializable {
         this.affaire = affaire;
         this.referent = referent;
     }
-    
+
     public enum statutCommande {
         CREEE,
-        MODIFIEE,
+        ATTENTEFOURNISSEUR,
+        LIVREEETSTOCKEE,
         FERMEE
     }
     

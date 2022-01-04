@@ -25,6 +25,21 @@ public class Affaire implements Serializable {
     private statutAffaire statut;
     private ChargeAffaire referent;
     
+    public Affaire(UUID identite, String rue, String ville, String cp, String mail, 
+            String telephone, String entreprise, String lieuPose, ChargeAffaire referent) {
+        this.rue = rue;
+        this.ville = ville;
+        this.cp = cp;
+        this.mail = mail;
+        this.telephone = telephone;
+        this.entreprise = entreprise;
+        this.lieuPose = lieuPose;
+        this.referent = referent;
+        
+        this.statut = statutAffaire.CREEE;
+        this.identite = identite;
+    }
+    
     public Affaire(String rue, String ville, String cp, String mail, 
             String telephone, String entreprise, String lieuPose, ChargeAffaire referent) {
         this.rue = rue;
@@ -42,8 +57,11 @@ public class Affaire implements Serializable {
     
     public enum statutAffaire {
         CREEE,
-        MODIFIEE,
         VALIDEE,
+        ATTENTECOMMANDE,
+        COMMANDELIVREE,
+        POSEE,
+        ENCAISSEE,
         FERMEE
     }
 
