@@ -22,4 +22,5 @@ public interface RendezVousLocal {
     
     ArrayList<eaimenuiserie.shared.RendezVous> getRendezVous(String id);
     
+    void confimerRendezVous(String idAffaire) throws Exception;
 }

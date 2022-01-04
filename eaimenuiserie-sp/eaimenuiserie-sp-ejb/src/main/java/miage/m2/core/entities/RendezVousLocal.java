@@ -20,4 +20,8 @@ public interface RendezVousLocal {
     void addRendezVous(eaimenuiserie.shared.RendezVous rendezVous) throws PersonneInconnue;
     
     ArrayList<eaimenuiserie.shared.RendezVous> getRendezVous(String id);
+
+    void confimerRendezVous(String idAffaire) throws Exception;
+    
+    
 }

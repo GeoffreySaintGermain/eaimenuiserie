@@ -21,16 +21,21 @@ public class RendezVous implements Serializable {
     
     private Date dateFin;
     
+    private UUID affaire;
+    
+    private boolean confirme = false;
+    
     /*public RendezVous(Date dateDebut, Date dateFin, UUID identite) {
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.identite = identite;
     }*/
     
-    public RendezVous(Date dateDebut, Date dateFin, String identite) {
+    public RendezVous(Date dateDebut, Date dateFin, String identite, String affaire) {
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.identite = UUID.fromString(identite);
+        this.affaire = UUID.fromString(affaire);
     }
 
     public UUID getIdentite() {
@@ -39,6 +44,14 @@ public class RendezVous implements Serializable {
 
     public void setIdentite(UUID identite) {
         this.identite = identite;
+    }
+    
+    public UUID getAffaire() {
+        return affaire;
+    }
+
+    public void setAffaire(UUID identite) {
+        this.affaire = identite;
     }
 
     public Date getDateDebut() {
@@ -55,6 +68,14 @@ public class RendezVous implements Serializable {
 
     public void setDateFin(Date dateFin) {
         this.dateFin = dateFin;
+    }
+
+    public boolean isConfirme() {
+        return confirme;
+    }
+
+    public void setConfirme(boolean confirme) {
+        this.confirme = confirme;
     }
     
 }

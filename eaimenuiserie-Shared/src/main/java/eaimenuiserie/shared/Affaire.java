@@ -23,10 +23,10 @@ public class Affaire implements Serializable {
     private String entreprise;
     private String lieuPose;
     private statutAffaire statut;
-    private ChargeAffaire referent;
+    private UUID chargeAffaire;
     
     public Affaire(UUID identite, String rue, String ville, String cp, String mail, 
-            String telephone, String entreprise, String lieuPose, ChargeAffaire referent) {
+            String telephone, String entreprise, String lieuPose, UUID chargeAffaire) {
         this.rue = rue;
         this.ville = ville;
         this.cp = cp;
@@ -34,14 +34,14 @@ public class Affaire implements Serializable {
         this.telephone = telephone;
         this.entreprise = entreprise;
         this.lieuPose = lieuPose;
-        this.referent = referent;
+        this.chargeAffaire = chargeAffaire;
         
         this.statut = statutAffaire.CREEE;
         this.identite = identite;
     }
     
     public Affaire(String rue, String ville, String cp, String mail, 
-            String telephone, String entreprise, String lieuPose, ChargeAffaire referent) {
+            String telephone, String entreprise, String lieuPose, UUID chargeAffaire) {
         this.rue = rue;
         this.ville = ville;
         this.cp = cp;
@@ -49,7 +49,7 @@ public class Affaire implements Serializable {
         this.telephone = telephone;
         this.entreprise = entreprise;
         this.lieuPose = lieuPose;
-        this.referent = referent;
+        this.chargeAffaire = chargeAffaire;
         
         this.statut = statutAffaire.CREEE;
         this.identite = UUID.randomUUID();
@@ -61,7 +61,8 @@ public class Affaire implements Serializable {
         ATTENTECOMMANDE,
         COMMANDELIVREE,
         POSEE,
-        ENCAISSEE,
+        ACCOMPTEENCAISSE,
+        ENCAISEE,
         FERMEE
     }
 
@@ -137,12 +138,12 @@ public class Affaire implements Serializable {
         this.statut = statut;
     }
 
-    public ChargeAffaire getReferent() {
-        return referent;
+    public UUID getChargeAffaire() {
+        return chargeAffaire;
     }
 
-    public void setReferent(ChargeAffaire referent) {
-        this.referent = referent;
+    public void setChargeAffaire(UUID referent) {
+        this.chargeAffaire = referent;
     }
     
 }

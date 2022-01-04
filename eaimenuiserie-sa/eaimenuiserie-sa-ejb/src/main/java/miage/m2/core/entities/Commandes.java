@@ -19,9 +19,6 @@ import miage.m2.expo.jms.UpdateStatutCommande;
  */
 @Singleton
 public class Commandes implements CommandesLocal {
-
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
     
     private static ArrayList<Commande> commandes;
 

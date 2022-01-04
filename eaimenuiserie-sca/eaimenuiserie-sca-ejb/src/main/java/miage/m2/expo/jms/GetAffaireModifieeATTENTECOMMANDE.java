@@ -44,6 +44,12 @@ public class GetAffaireModifieeATTENTECOMMANDE implements MessageListener {
             TextMessage obj = (TextMessage) message;
             try {
                 affaires.modifierStatut(obj.getText(), Affaire.statutAffaire.ATTENTECOMMANDE);
+                for(Affaire affaireObj : affaires.getAffaires()) {
+                    if(affaireObj.getIdentite().toString().equals(obj.getText())) {
+                       SendAffaireAEncaisser.sendAffaire(affaireObj);
+                       return;
+                    }
+                }
             } catch (JMSException exception) {
                 System.err.println("Failed to get message text: " + exception);
             }

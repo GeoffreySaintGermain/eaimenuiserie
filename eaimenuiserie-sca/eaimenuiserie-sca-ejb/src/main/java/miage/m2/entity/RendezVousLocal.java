@@ -14,6 +14,11 @@ import javax.ejb.Local;
 @Local
 public interface RendezVousLocal {
 
+    /**
+     * Permet d'envoyer un rendez-vous aux poseurs ou aux commerciaux
+     * @param rendezVous Le rendez-vous que l'on envoie
+     * @param typeRdv Si c'est pour un poseur ou pour un commercial
+     */
     void envoyerRendezVous(eaimenuiserie.shared.RendezVous rendezVous, String typeRdv);
     
 }

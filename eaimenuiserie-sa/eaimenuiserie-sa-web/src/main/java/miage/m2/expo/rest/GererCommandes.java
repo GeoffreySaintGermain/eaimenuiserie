@@ -20,7 +20,6 @@ import javax.ws.rs.PUT;
 import javax.enterprise.context.RequestScoped;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.ws.rs.POST;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -61,15 +60,15 @@ public class GererCommandes {
 
     /**
      * PUT method for updating or creating an instance of GererCommandes
-     * @param content representation for the resource
+     * @param idCommande La commande que l'on veut modifier
+     * @param statutCommandeObj Le nouveau statut de la commande
+     * @return Ok/Nok
      */
     @PUT
     @Path("{idCommande}/{statutCommande}")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response putJson(@PathParam("idCommande") String idCommande, @PathParam("statutCommande") String statutCommandeObj) {
         try {
-            Affaire.statutAffaire statutAffaire;
-            Commande.statutCommande statutCommande;
             switch(statutCommandeObj) {
                 case "ATTENTEFOURNISSEUR" :
                     commandes.passerCommandeFournisseur(idCommande);

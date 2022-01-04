@@ -5,8 +5,8 @@
  */
 package miage.m2.core.entities;
 
+import eaimenuiserie.shared.Affaire;
 import eaimenuiserie.shared.Commande;
-import eaimenuiserie.shared.Commercial;
 import java.util.ArrayList;
 import java.util.UUID;
 import javax.ejb.EJB;
@@ -27,6 +27,7 @@ public class Commandes implements CommandesLocal {
 
     private static ArrayList<Commande> commandes;
 
+    @Override
     public ArrayList<Commande> getCommandes() {
         if(commandes == null) {
             commandes  = new ArrayList<>();
@@ -36,10 +37,11 @@ public class Commandes implements CommandesLocal {
 
     @Override
     public void addCommandes(Commande commande) {
-        Commande commandeToAdd = new Commande(commande.getRefCatalogueProduit(), commande.getMesure(), commande.getMontant(), commande.getAffaire(), new Commercial(commande.getReferent().getNom(), commande.getReferent().getPrenom()));
+        Commande commandeToAdd = new Commande(commande.getRefCatalogueProduit(), commande.getMesure(), commande.getMontant(), commande.getAffaire(), commande.getCommercial());
         getCommandes().add(commandeToAdd);
         SendAffaireValidee.sendMsg(commandeToAdd.getAffaire());
         SendCommandeValidee.sendMsg(commandeToAdd);
+        affaires.modifierStatut(commande.getAffaire().toString(), Affaire.statutAffaire.VALIDEE);
     }
 
     @Override

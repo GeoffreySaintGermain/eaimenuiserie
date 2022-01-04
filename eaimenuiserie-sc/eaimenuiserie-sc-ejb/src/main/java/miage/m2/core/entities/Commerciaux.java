@@ -16,9 +16,6 @@ import javax.ejb.Singleton;
  */
 @Singleton
 public class Commerciaux implements CommerciauxLocal {
-
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
     
     private static ArrayList<Commercial> commerciaux;
 

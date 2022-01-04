@@ -13,31 +13,29 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
-import miage.m2.core.entities.AffairesLocal;
-import miage.m2.core.entities.CommandesLocal;
+import miage.m2.entity.AffairesLocal;
 
 /**
  *
  * @author Kevin
  */
-@MessageDriven(mappedName = "affaireCloturee", activationConfig = {
-    @ActivationConfigProperty(propertyName = "clientId", propertyValue = "scaffaireCloturee")
+@MessageDriven(mappedName = "affaireModifiee", activationConfig = {
+    @ActivationConfigProperty(propertyName = "clientId", propertyValue = "scaaffaireModifieeENCAISEE")
     ,
         @ActivationConfigProperty(propertyName = "subscriptionDurability", propertyValue = "Durable")
     ,
-        @ActivationConfigProperty(propertyName = "subscriptionName", propertyValue = "affaireCloturee")
+        @ActivationConfigProperty(propertyName = "subscriptionName", propertyValue = "affaireModifiee")
     ,
         @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic")
+    ,
+        @ActivationConfigProperty(propertyName = "messageSelector", propertyValue = "JMSType = 'ENCAISEE'")
 })
-public class GetAffaireFermee implements MessageListener {
-
-    @EJB
-    private CommandesLocal commandes;
+public class GetAffaireModifieeENCAISEE implements MessageListener {
 
     @EJB
     private AffairesLocal affaires;
     
-    public GetAffaireFermee() {
+    public GetAffaireModifieeENCAISEE() {
     }
     
     @Override
@@ -45,8 +43,7 @@ public class GetAffaireFermee implements MessageListener {
         if (message instanceof TextMessage) {
             TextMessage obj = (TextMessage) message;
             try {
-                affaires.modifierStatut(obj.getText(), Affaire.statutAffaire.FERMEE);
-                commandes.fermerCommandesSuiteFermetureAffaire(obj.getText());
+                affaires.modifierStatut(obj.getText(), Affaire.statutAffaire.ENCAISEE);
             } catch (JMSException exception) {
                 System.err.println("Failed to get message text: " + exception);
             }

@@ -19,4 +19,21 @@ public class Mesure implements Serializable {
         this.mesureLargeur = mesureLargeur;
         this.mesureLongueur = mesureLongueur;
     }
+
+    public String getMesureLargeur() {
+        return mesureLargeur;
+    }
+
+    public void setMesureLargeur(String mesureLargeur) {
+        this.mesureLargeur = mesureLargeur;
+    }
+
+    public String getMesureLongueur() {
+        return mesureLongueur;
+    }
+
+    public void setMesureLongueur(String mesureLongueur) {
+        this.mesureLongueur = mesureLongueur;
+    }
+    
 }

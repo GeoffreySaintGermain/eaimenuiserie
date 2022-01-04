@@ -20,10 +20,7 @@ public class RendezVous implements RendezVousLocal {
     @EJB
     private PoseursLocal poseurs;
     
-    
-
     private static ArrayList<eaimenuiserie.shared.RendezVous> rendezVous;
-    
     
     @Override
     public ArrayList<eaimenuiserie.shared.RendezVous> getRendezVous() {
@@ -55,4 +52,16 @@ public class RendezVous implements RendezVousLocal {
         }
         return userRdv;
     }
+
+    @Override
+    public void confimerRendezVous(String idAffaire) throws Exception {
+        for(eaimenuiserie.shared.RendezVous rdv : rendezVous) {
+            if(rdv.getAffaire().toString().equals(idAffaire)) {
+                rdv.setConfirme(true);
+                return;
+            }
+        }
+        throw new Exception("Can not found affaire : " + idAffaire);
+    }
+       
 }

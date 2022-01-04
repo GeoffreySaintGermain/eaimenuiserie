@@ -8,7 +8,6 @@ package miage.m2.expo.rest;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -86,7 +85,7 @@ public class RendezVous {
         try {
             SimpleDateFormat dateformatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.FRANCE);
             JsonObject  jobj = this.gson.fromJson(content, JsonObject.class);            
-            eaimenuiserie.shared.RendezVous rendezVousObj = new eaimenuiserie.shared.RendezVous(dateformatter.parse(jobj.get("dateDebut").getAsString()), dateformatter.parse(jobj.get("dateFin").getAsString()), jobj.get("identite").getAsString());
+            eaimenuiserie.shared.RendezVous rendezVousObj = new eaimenuiserie.shared.RendezVous(dateformatter.parse(jobj.get("dateDebut").getAsString()), dateformatter.parse(jobj.get("dateFin").getAsString()), jobj.get("identite").getAsString(), jobj.get("referent").getAsString());
             this.rendezVous.envoyerRendezVous(rendezVousObj, type);
             return Response.status(Response.Status.CREATED).build();        
         } catch(Exception e) {

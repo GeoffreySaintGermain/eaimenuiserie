@@ -12,41 +12,41 @@ import javax.ejb.MessageDriven;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
-import javax.jms.TextMessage;
+import javax.jms.ObjectMessage;
 import miage.m2.core.entities.AffairesLocal;
-import miage.m2.core.entities.CommandesLocal;
 
 /**
  *
  * @author Kevin
  */
-@MessageDriven(mappedName = "affaireCloturee", activationConfig = {
-    @ActivationConfigProperty(propertyName = "clientId", propertyValue = "scaffaireCloturee")
+@MessageDriven(mappedName = "affaireModifiee", activationConfig = {
+    @ActivationConfigProperty(propertyName = "clientId", propertyValue = "scoaffaireEmise")
     ,
         @ActivationConfigProperty(propertyName = "subscriptionDurability", propertyValue = "Durable")
     ,
-        @ActivationConfigProperty(propertyName = "subscriptionName", propertyValue = "affaireCloturee")
+        @ActivationConfigProperty(propertyName = "subscriptionName", propertyValue = "affaireModifiee")
     ,
         @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic")
+    ,
+        @ActivationConfigProperty(propertyName = "messageSelector", propertyValue = "JMSType = 'ENCAISSEMENTOBJECT'")
 })
-public class GetAffaireFermee implements MessageListener {
-
-    @EJB
-    private CommandesLocal commandes;
+public class GetAffaireEmise implements MessageListener {
 
     @EJB
     private AffairesLocal affaires;
     
-    public GetAffaireFermee() {
+    
+    
+    public GetAffaireEmise() {
     }
     
     @Override
     public void onMessage(Message message) {
-        if (message instanceof TextMessage) {
-            TextMessage obj = (TextMessage) message;
+        System.out.println("ccx");
+        if (message instanceof ObjectMessage) {
+            ObjectMessage obj = (ObjectMessage) message;
             try {
-                affaires.modifierStatut(obj.getText(), Affaire.statutAffaire.FERMEE);
-                commandes.fermerCommandesSuiteFermetureAffaire(obj.getText());
+                affaires.ajouterAffaire((Affaire)obj.getObject());
             } catch (JMSException exception) {
                 System.err.println("Failed to get message text: " + exception);
             }

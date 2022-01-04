@@ -20,26 +20,26 @@ public class Commande implements Serializable {
     private double montant;
     private statutCommande statut;
     private UUID affaire;
-    private Commercial referent;
+    private UUID commercial;
     
-    public Commande(UUID identite, String refCatalogueProduit, Mesure mesure, double montant, UUID affaire, Commercial referent) {
+    public Commande(UUID identite, String refCatalogueProduit, Mesure mesure, double montant, UUID affaire, UUID commercial) {
         this.refCatalogueProduit = refCatalogueProduit;
         this.mesure = mesure;
         this.montant = montant;
         this.statut = statutCommande.CREEE;
         this.affaire = affaire;
-        this.referent = referent;
+        this.commercial = commercial;
         this.identite = identite;
     }
     
-    public Commande(String refCatalogueProduit, Mesure mesure, double montant, UUID affaire, Commercial referent) {
+    public Commande(String refCatalogueProduit, Mesure mesure, double montant, UUID affaire, UUID commercial) {
         this.refCatalogueProduit = refCatalogueProduit;
         this.mesure = mesure;
         this.montant = montant;
         this.identite = UUID.randomUUID();
         this.statut = statutCommande.CREEE;
         this.affaire = affaire;
-        this.referent = referent;
+        this.commercial = commercial;
     }
 
     public enum statutCommande {
@@ -49,12 +49,12 @@ public class Commande implements Serializable {
         FERMEE
     }
     
-    public Commercial getReferent() {
-        return referent;
+    public UUID getCommercial() {
+        return commercial;
     }
 
-    public void setReferent(Commercial referent) {
-        this.referent = referent;
+    public void setCommercial(UUID referent) {
+        this.commercial = referent;
     }
 
     public UUID getIdentite() {

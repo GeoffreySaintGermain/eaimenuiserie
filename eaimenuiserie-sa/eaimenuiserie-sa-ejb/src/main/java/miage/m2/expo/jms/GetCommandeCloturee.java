@@ -5,14 +5,12 @@
  */
 package miage.m2.expo.jms;
 
-import eaimenuiserie.shared.Commande;
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
-import javax.jms.ObjectMessage;
 import javax.jms.TextMessage;
 import miage.m2.core.entities.CommandesLocal;
 

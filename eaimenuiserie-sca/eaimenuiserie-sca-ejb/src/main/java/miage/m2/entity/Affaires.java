@@ -6,8 +6,8 @@
 package miage.m2.entity;
 
 import eaimenuiserie.shared.Affaire;
-import eaimenuiserie.shared.ChargeAffaire;
 import java.util.ArrayList;
+import java.util.UUID;
 import javax.ejb.Singleton;
 import miage.m2.expo.jms.SendAffaireEmise;
 import miage.m2.expo.jms.SendAffaireFermee;
@@ -31,7 +31,7 @@ public class Affaires implements AffairesLocal {
 
     @Override
     public void creerAffaire(String rue, String ville, String cp, String mail, 
-            String telephone, String entreprise, String lieuPose, ChargeAffaire referent) {
+            String telephone, String entreprise, String lieuPose, UUID referent) {
         Affaire affaireObj = new Affaire(rue, ville, cp, mail, telephone, entreprise, lieuPose, referent);
         getAffaires().add(affaireObj);
         SendAffaireEmise.sendAffaire(affaireObj);
@@ -39,7 +39,7 @@ public class Affaires implements AffairesLocal {
     
     @Override
     public void creerAffaire(Affaire affaire) {
-        Affaire affaireObj = new Affaire(affaire.getRue(), affaire.getVille(), affaire.getCp(), affaire.getMail(), affaire.getTelephone(), affaire.getEntreprise(), affaire.getLieuPose(), affaire.getReferent());
+        Affaire affaireObj = new Affaire(affaire.getRue(), affaire.getVille(), affaire.getCp(), affaire.getMail(), affaire.getTelephone(), affaire.getEntreprise(), affaire.getLieuPose(), affaire.getChargeAffaire());
         getAffaires().add(affaireObj);
         SendAffaireEmise.sendAffaire(affaireObj);
     }

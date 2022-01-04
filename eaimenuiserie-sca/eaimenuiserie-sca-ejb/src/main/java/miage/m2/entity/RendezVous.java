@@ -15,12 +15,14 @@ import miage.m2.expo.jms.SendRendezVous;
 @Singleton
 public class RendezVous implements RendezVousLocal {
 
+    /**
+     * Permet d'envoyer un rendez-vous aux poseurs ou aux commerciaux
+     * @param rendezVous Le rendez-vous que l'on envoie
+     * @param typeRdv Si c'est pour un poseur ou pour un commercial
+     */
     @Override
     public void envoyerRendezVous(eaimenuiserie.shared.RendezVous rendezVous, String typeRdv) {
         SendRendezVous.sendRendezVous(rendezVous, typeRdv);
     }
-
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
     
 }

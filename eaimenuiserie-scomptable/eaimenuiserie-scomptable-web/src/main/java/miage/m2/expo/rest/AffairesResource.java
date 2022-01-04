@@ -10,73 +10,67 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PUT;
 import javax.enterprise.context.RequestScoped;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.ws.rs.POST;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import miage.m2.core.entities.RendezVousLocal;
 
 /**
  * REST Web Service
  *
  * @author Kevin
  */
-@Path("rendezvous")
+@Path("affaires")
 @RequestScoped
-public class RendezVousResource {
+public class AffairesResource {
 
-    RendezVousLocal rendezVous = lookupRendezVousLocal();
-    
+    miage.m2.core.entities.AffairesLocal affaires = lookupAffairesLocal();
+
     private Gson gson;
-
+    
     @Context
     private UriInfo context;
 
     /**
-     * Creates a new instance of RendezVousResource
+     * Creates a new instance of AffairesResource
      */
-    public RendezVousResource() {
+    public AffairesResource() {
         gson = new Gson();
     }
 
     /**
-     * Retrieves representation of an instance of miage.m2.expo.rest.RendezVousResource
+     * Retrieves representation of an instance of miage.m2.expo.rest.AffairesResource
      * @return an instance of java.lang.String
      */
     @GET
-    @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getJson(@PathParam("id") String userId) {
-        return Response.ok(gson.toJson(this.rendezVous.getRendezVous(userId))).build();
+    public Response getJson() {
+        return Response.ok(gson.toJson(affaires.getAffaires())).build();
     }
-
-    /**
-     * PUT method for updating or creating an instance of RendezVousResource
-     * @param content representation for the resource
-     */
-    @PUT
-    @Path("{id}")
+    
+    @POST
+    @Path("{id}/encaisser")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response putJson(@PathParam("id") String affaireId) {
+    public Response encaisserJson(@PathParam("id") String affaireId) {
         try {
-            rendezVous.confimerRendezVous(affaireId);
-            return Response.ok().build();
+            this.affaires.encaisserAffaire(affaireId);
+            return Response.status(Response.Status.OK).build();        
         } catch(Exception e) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
     }
 
-    private RendezVousLocal lookupRendezVousLocal() {
+    private miage.m2.core.entities.AffairesLocal lookupAffairesLocal() {
         try {
             javax.naming.Context c = new InitialContext();
-            return (RendezVousLocal) c.lookup("java:global/eaimenuiserie-sp-ear/eaimenuiserie-sp-ejb-1.0-SNAPSHOT/RendezVous!miage.m2.core.entities.RendezVousLocal");
+            return (miage.m2.core.entities.AffairesLocal) c.lookup("java:global/eaimenuiserie-scomptable-ear/eaimenuiserie-scomptable-ejb-1.0-SNAPSHOT/Affaires!miage.m2.core.entities.AffairesLocal");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
